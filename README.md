@@ -1,14 +1,119 @@
-This is the source code for the now-defunct Pokémon Maize Event Giveaway website. It was hosted on the [Heroku](https://www.heroku.com/) platform.  [Pokémon Maize](https://github.com/huderlem/maize) is my old ROM hack of Pokémon Red Version, and it had an in-game system where the player could enter a code to receive special Pokémon.  First, the player would enter his/her trainer id into the website, and it would generate a code to be used in-game. Pokémon Maize also supported shiny Pokémon, so this event could generate shiny Pokémon for the player.
+# 🎮 Pokémon Maize Event Giveaway Website
 
-There are four alternate sprites for special Pokémon which could only be received via this event website:
-1. Electrode with a headband
-    - ![electrode-alt-front](https://github.com/huderlem/maize-event/assets/2229288/ade23836-b186-4a89-a154-4c26aaa7f33e) ![electrode-alt-back](https://github.com/huderlem/maize-event/assets/2229288/c270c2da-0fd5-46ed-b371-e14f5d8567e0)
-2. Squirtle with sunglasses
-    - ![squirtle-alt-front](https://github.com/huderlem/maize-event/assets/2229288/13e94042-1df3-4321-863c-8e6d76f4a9f8) ![squirtle-alt-back](https://github.com/huderlem/maize-event/assets/2229288/e889c1bf-2b94-49ab-826b-6934f0c31541)
-4. Wartortle with sunglasses
-    - ![wartortle-alt-front](https://github.com/huderlem/maize-event/assets/2229288/3788941c-0d73-4684-bdd4-c0dd0e43317f) ![wartortle-alt-back](https://github.com/huderlem/maize-event/assets/2229288/7941279a-c3ee-4107-9c25-3e1a9c2e52ad)
-6. Blastoise with sunglasses
-    - ![blastoise-alt-front](https://github.com/huderlem/maize-event/assets/2229288/0518201c-36d0-4498-af74-c2df82533d81) ![blastoise-alt-back](https://github.com/huderlem/maize-event/assets/2229288/0a94f77b-41c8-481e-9951-77e18a058cf4)
+> A Flask web application for generating event codes to receive special Pokémon in [Pokémon Maize](https://github.com/huderlem/maize), a ROM hack of Pokémon Red Version.
 
+![Pokémon Maize](https://img.shields.io/badge/Pokémon-Maize-red?style=flat-square)
+![Python](https://img.shields.io/badge/Python-3.x-blue?style=flat-square&logo=python)
+![Flask](https://img.shields.io/badge/Flask-3.0-green?style=flat-square&logo=flask)
 
-I believe I only ever had the event run for the Squirtle with sunglasses, and a shiny Pikachu (which was meant to be a "Pikablu").
+## 📖 About
+
+This is the source code for the **Pokémon Maize Event Giveaway** website. Originally hosted on [Heroku](https://www.heroku.com/), this application generates unique 13-number codes that players can enter in-game to receive special event Pokémon.
+
+[**Pokémon Maize**](https://github.com/huderlem/maize) is a ROM hack of Pokémon Red Version that features an in-game system where players can enter codes to receive special Pokémon. The website takes a player's Trainer ID and generates a personalized code that can be redeemed at the Agate City PokéCenter.
+
+✨ **All event Pokémon are shiny!** ✨
+
+## 🎁 Available Event Pokémon
+
+The website now supports **5 different event Pokémon**, each with unique characteristics:
+
+### ⚡ Flying/Surfing Pikablue
+- **Pokémon**: Shiny Pikachu (Pikablue)
+- **Level**: 5
+- **Moves**: Fly or Surf (random), Thundershock, Growl
+- **Special**: Can learn Fly or Surf, making it a unique Pikachu variant!
+
+### 😎 Sunglasses Squirtle
+- **Pokémon**: Shiny Squirtle with sunglasses
+- **Level**: 5
+- **Moves**: Bubblebeam, Surf, Skull Bash
+- **Special**: Alternate sprite with cool sunglasses!
+
+### 😎 Sunglasses Wartortle
+- **Pokémon**: Shiny Wartortle with sunglasses
+- **Level**: 16
+- **Moves**: Surf, Skull Bash, Hydro Pump
+- **Special**: Alternate sprite with cool sunglasses!
+
+### 😎 Sunglasses Blastoise
+- **Pokémon**: Shiny Blastoise with sunglasses
+- **Level**: 36
+- **Moves**: Surf, Hydro Pump, Skull Bash
+- **Special**: Alternate sprite with cool sunglasses!
+
+### 🎀 Headband Electrode
+- **Pokémon**: Shiny Electrode with headband
+- **Level**: 30
+- **Moves**: Thunder, Explosion, Self-Destruct
+- **Special**: Alternate sprite with a stylish headband!
+
+## 🚀 How It Works
+
+1. **Enter your Trainer ID** (found on your trainer card in-game, between 0-65535)
+2. **Select the Pokémon** you want from the dropdown menu
+3. **Get your code** - a unique 13-number code will be generated
+4. **Redeem in-game** - Talk to the NPC in Agate City's PokéCenter and enter the numbers in order
+
+## 🛠️ Setup & Installation
+
+### Requirements
+- Python 3.x
+- Flask 3.0.3
+- Flask-WTF 1.2.1
+- WTForms 3.1.2
+
+### Installation
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd maize-event
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the application
+python run.py
+```
+
+The application will be available at `http://127.0.0.1:5000`
+
+## 📝 Technical Details
+
+The code generation algorithm:
+- Uses XOR encryption with the Trainer ID for security
+- Generates checksums to validate the code
+- Creates a unique 13-number code for each Trainer ID and Pokémon combination
+
+## 🎨 Features
+
+- ✅ Support for 5 different event Pokémon
+- ✅ Shiny Pokémon generation
+- ✅ Alternate sprite support
+- ✅ Randomized moves (for Pikablue)
+
+## 👥 Credits
+
+### Original Author
+**[Marcus Huderle](https://github.com/huderlem)** (2015) - Original creator of the Pokémon Maize Event Giveaway website and the [Pokémon Maize ROM hack](https://github.com/huderlem/maize).
+
+### Special Thanks
+- **[CalentadasTCG](https://www.youtube.com/@CalentadasTCG)** - Introduced me to this amazing ROM hack and helped test the new code implementations! 🎮
+
+### Improvements
+This version includes:
+- ✨ Multi-Pokémon support (originally only supported Pikachu)
+- 🔧 Updated dependencies for modern Python versions
+- 🎨 Enhanced UI with Pokémon selection
+- 🐛 Fixed internal Pokémon IDs for correct code generation
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+**Original code** (2015) by [Marcus Huderle](https://github.com/huderlem). This version includes modifications and extensions to support multiple Pokémon, updated dependencies, and enhanced functionality.
+
+---
+
+**Note**: This was originally a Heroku-hosted application. The code has been updated to work with modern Python and Flask versions while maintaining compatibility with the original Pokémon Maize ROM hack.

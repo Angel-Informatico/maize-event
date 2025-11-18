@@ -42,12 +42,21 @@
         <div class="col-md-6">
           <div class="well">
             <h2>Details</h2>
+            {% if pokemon_info %}
+            <p>{{ pokemon_info.description }}</p>
+            <img src="/static/img/{{ pokemon_info.image }}">
+            <p>Pokémon: {{ pokemon_info.name }}</p>
+            <p>Level: {{ pokemon_info.level_display }}</p>
+            <p>Moves: {{ pokemon_info.moves_text }}</p>
+            <p>DVs: Shiny!</p>
+            {% else %}
             <p>This Pikachu will either know Fly or Surf. Plus, it's shiny, so it's a Pikablue!</p>
             <img src="/static/img/pikablue.png">
             <p>Pokémon: Flying/Surfing Pikablue</p>
             <p>Level: 5</p>
             <p>Moves: Fly or Surf, Thundershock, Growl</p>
             <p>DVs: Shiny!</p>
+            {% endif %}
           </div>
         </div>
         <div class="col-md-6">
@@ -56,6 +65,10 @@
             <p>Enter your trainer id below. You can find your trainer id on your trainer card in the game (trainer card is near the bottom of the Start Menu).  It will be a number between 0 and 65535.  This will give you an 13-number code.  To claim your event Pokémon in the game, talk to the NPC in Agate City's PokéCenter.  You must enter the 13 numbers in the same order as they appear here.</p>
             <form action="" method="post" name="login">
               {{ form.hidden_tag() }}
+              <p>
+                Select Pokémon:<br>
+                {{ form.pokemon() }}
+              </p>
               <p>
                 Enter your Trainer ID:<br>
                 {{ form.trainer_id(size=20) }}
