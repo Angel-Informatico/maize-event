@@ -63,7 +63,7 @@ The website now supports **5 different event Pokémon**, each with unique charac
 - Flask-WTF 1.2.1
 - WTForms 3.1.2
 
-### Installation
+### Local Development
 
 ```bash
 # Clone the repository
@@ -78,6 +78,39 @@ python run.py
 ```
 
 The application will be available at `http://127.0.0.1:5000`
+
+### Deployment
+
+This project can be deployed to various platforms:
+
+#### Vercel
+
+The project can be deployed to [Vercel](https://vercel.com/):
+
+1. **Install Vercel CLI** (optional):
+   ```bash
+   npm i -g vercel
+   ```
+
+2. **Deploy**:
+   ```bash
+   vercel
+   ```
+   
+   Or connect your GitHub repository directly in the Vercel dashboard.
+
+3. **Configuration**: The project includes `vercel.json` and `api/index.py` for Vercel compatibility.
+
+**Note**: Vercel automatically detects Python projects and uses the `@vercel/python` runtime. The Flask app is served through the `api/index.py` entry point.
+
+#### Other Platforms
+
+This Flask application can also be deployed to other platforms like:
+- **Heroku** (original hosting platform)
+- **Railway**
+- **Render**
+- **PythonAnywhere**
+- Any platform that supports Python/Flask applications
 
 ## 📝 Technical Details
 
