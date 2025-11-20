@@ -1,0 +1,91 @@
+# Workflow name that will appear in the GitHub "Actions" tab
+name: Build and Release Desktop App
+
+# Events that trigger this workflow
+on:
+  # Runs when a new "Release" is published on GitHub
+  release:
+    types: [published]
+  # Allows manual execution from the "Actions" tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    # Nombre del trabajo
+    name: Build on ${{ matrix.os }}
+    
+    # Strategy to build on multiple operating systems
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    # Virtual machine where the job will run
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      # 1. Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9' # We use a stable version of Python
+
+      # 3. Install Python dependencies
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller pywebview
+
+      # 4. Install system dependencies (Linux only)
+      # pywebview on Linux needs these libraries for the web view
+      - name: Install system dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev
+
+      # 5. Build the application with PyInstaller
+      - name: Build executable with PyInstaller
+        run: |
+          # Define the executable name based on the OS
+          # For Windows, the executable is .exe
+          if [ "${{ runner.os }}" == "Windows" ]; then
+            pyinstaller --onefile --windowed --name "MaizeEventApp" --add-data "app/static;app/static" --add-data "app/templates;app/templates" --hidden-import "webview" --hidden-import "config" --icon="icon.ico" desktop.py
+          # For macOS, we use .icns
+          elif [ "${{ runner.os }}" == "macOS" ]; then
+            pyinstaller --onefile --windowed --name "MaizeEventApp" --add-data "app/static:app/static" --add-data "app/templates:app/templates" --hidden-import "webview" --hidden-import "config" --icon="icon.icns" desktop.py
+          else
+            pyinstaller --onefile --windowed --name "MaizeEventApp" --add-data "app/static:app/static" --add-data "app/templates:app/templates" --hidden-import "webview" --hidden-import "config" --icon="icon.png" desktop.py
+          fi
+
+      # 6. Prepare release artifacts
+      - name: Prepare release artifacts
+        run: |
+          # Create a unique filename for each OS
+          # Eg: MaizeEventApp-windows.exe, MaizeEventApp-linux, MaizeEventApp-macos
+          ARTIFACT_NAME="MaizeEventApp-${{ runner.os }}"
+          if [ "${{ runner.os }}" == "Windows" ]; then
+            mv dist/MaizeEventApp.exe "dist/${ARTIFACT_NAME}.exe"
+          else
+            mv dist/MaizeEventApp "dist/${ARTIFACT_NAME}"
+          fi
+        shell: bash
+
+      # 7. Upload executable to GitHub Release
+      - name: Upload artifact to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # URL to upload the asset, provided by the 'release' event
+          upload_url: ${{ github.event.release.upload_url }}
+          # Path of the file to upload
+          asset_path: dist/MaizeEventApp-${{ runner.os }}${{ runner.os == 'Windows' && '.exe' || '' }}
+          # Name of the asset in the release
+          asset_name: MaizeEventApp-${{ runner.os }}${{ runner.os == 'Windows' && '.exe' || '' }}
+          # Content type of the asset
+          asset_content_type: application/octet-stream

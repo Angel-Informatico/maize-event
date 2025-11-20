@@ -55,6 +55,12 @@ The website now supports **5 different event Pokémon**, each with unique charac
 3. **Get your code** - a unique 13-number code will be generated
 4. **Redeem in-game** - Talk to the NPC in Agate City's PokéCenter and enter the numbers in order
 
+## 💻 Desktop Application
+
+For ease of use, this project can also be run as a standalone desktop application for **Windows, MacOS, and Linux**. This version works offline and does not require any installation or a separate web browser.
+
+You can download the latest version for your operating system from the **[Releases page](https://github.com/huderlem/maize/releases)**.
+
 ## 🛠️ Setup & Installation
 
 ### Requirements
@@ -78,6 +84,26 @@ python run.py
 ```
 
 The application will be available at `http://127.0.0.1:5000`
+
+### Building the Desktop App
+
+You can also build the desktop application from source.
+
+1.  **Install additional dependencies**:
+    ```bash
+    pip install pyinstaller pywebview
+    ```
+
+2.  **Build with PyInstaller**:
+    *   **On Windows**:
+        ```bash
+        pyinstaller --onefile --windowed --name "MaizeEventApp" --add-data "app/static;app/static" --add-data "app/templates;app/templates" --hidden-import "webview" --hidden-import "config" --icon="icon.ico" desktop.py
+        ```
+    *   **On macOS/Linux**:
+        ```bash
+        pyinstaller --onefile --windowed --name "MaizeEventApp" --add-data "app/static:app/static" --add-data "app/templates:app/templates" --hidden-import "webview" --hidden-import "config" --icon="icon.icns" desktop.py
+        ```
+    The executable will be created in the `dist/` folder.
 
 ### Deployment
 
