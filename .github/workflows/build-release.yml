@@ -78,6 +78,7 @@ jobs:
 
       # 7. Upload executable to GitHub Release
       - name: Upload artifact to Release
+        if: github.event_name == 'release'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
