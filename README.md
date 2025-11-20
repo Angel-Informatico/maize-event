@@ -59,7 +59,7 @@ The website now supports **5 different event Pokémon**, each with unique charac
 
 For ease of use, this project can also be run as a standalone desktop application for **Windows, MacOS, and Linux**. This version works offline and does not require any installation or a separate web browser.
 
-You can download the latest version for your operating system from the **[Releases page](https://github.com/huderlem/maize/releases)**.
+You can download the latest version for your operating system from the **[Releases page](https://github.com/Angel-Informatico/maize-event/releases)**.
 
 ## 🛠️ Setup & Installation
 
