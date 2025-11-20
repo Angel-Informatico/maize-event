@@ -99,9 +99,13 @@ You can also build the desktop application from source.
         ```bash
         pyinstaller --onefile --windowed --name "MaizeEventApp" --add-data "app/static;app/static" --add-data "app/templates;app/templates" --hidden-import "webview" --hidden-import "config" --icon="icon.ico" desktop.py
         ```
-    *   **On macOS/Linux**:
+    *   **On macOS**:
         ```bash
         pyinstaller --onefile --windowed --name "MaizeEventApp" --add-data "app/static:app/static" --add-data "app/templates:app/templates" --hidden-import "webview" --hidden-import "config" --icon="icon.icns" desktop.py
+        ```
+    *   **On Linux**:
+        ```bash
+        pyinstaller --onefile --windowed --name "MaizeEventApp" --add-data "app/static:app/static" --add-data "app/templates:app/templates" --hidden-import "webview" --hidden-import "config" --icon="icon.png" desktop.py
         ```
     The executable will be created in the `dist/` folder.
 

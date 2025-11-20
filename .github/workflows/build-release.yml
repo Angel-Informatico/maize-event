@@ -57,6 +57,16 @@ jobs:
             pyinstaller --onefile --windowed --name "MaizeEventApp" --add-data "app/static;app/static" --add-data "app/templates;app/templates" --hidden-import "webview" --hidden-import "config" --icon="icon.ico" desktop.py
           # For macOS, we use .icns
           elif [ "${{ runner.os }}" == "macOS" ]; then
+            # Create an icon set directory
+            mkdir icon.iconset
+            # Create icons of different sizes from the source PNG
+            sips -z 16 16     icon.png --out icon.iconset/icon_16x16.png
+            sips -z 32 32     icon.png --out icon.iconset/icon_16x16@2x.png
+            sips -z 32 32     icon.png --out icon.iconset/icon_32x32.png
+            sips -z 64 64     icon.png --out icon.iconset/icon_32x32@2x.png
+            # Convert the icon set to a .icns file
+            iconutil -c icns icon.iconset
+            # Build the app using the newly generated icon
             pyinstaller --onefile --windowed --name "MaizeEventApp" --add-data "app/static:app/static" --add-data "app/templates:app/templates" --hidden-import "webview" --hidden-import "config" --icon="icon.icns" desktop.py
           else
             pyinstaller --onefile --windowed --name "MaizeEventApp" --add-data "app/static:app/static" --add-data "app/templates:app/templates" --hidden-import "webview" --hidden-import "config" --icon="icon.png" desktop.py

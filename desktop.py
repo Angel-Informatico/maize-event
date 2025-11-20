@@ -26,9 +26,9 @@ def main():
     # 2. Create and show the pywebview window.
     try:
         window = webview.create_window(TITLE, URL, width=1280, height=720, resizable=True)
-        webview.start(debug=False) # debug=False para producción
+        webview.start(debug=False) # debug=False for production
     except Exception as e:
-        print(f"Error al crear la ventana de la aplicación: {e}")
+        print(f"Error creating the application window: {e}")
     finally:
         # Ensure the program exits correctly
         sys.exit()
