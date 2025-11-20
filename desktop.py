@@ -13,8 +13,8 @@ def run_flask():
     try:
         app.run(host='127.0.0.1', port=5000, debug=False)
     except Exception as e:
-        print(f"Error al iniciar Flask: {e}")
-        # In a real app, you might want to log this to a file.
+        print(f"Error starting Flask: {e}")
+        # In a real app, you might want to log this to a file
 
 def main():
     """Main function to start the application."""

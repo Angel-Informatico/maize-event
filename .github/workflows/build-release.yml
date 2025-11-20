@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    # Nombre del trabajo
+    # Job name
     name: Build on ${{ matrix.os }}
     
     # Strategy to build on multiple operating systems
@@ -38,7 +38,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pyinstaller pywebview
+          pip install pyinstaller pywebview Pillow
 
       # 4. Install system dependencies (Linux only)
       # pywebview on Linux needs these libraries for the web view
